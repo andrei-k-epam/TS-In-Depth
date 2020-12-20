@@ -1,7 +1,10 @@
 import { ReferenceItem, RefBook } from './classes';
 import { Category } from './enums';
+import { getAllBooks } from './functions';
 import { Logger } from './interfaces';
 import { PersonBook } from './types';
+
+import type { Library } from './classes';
 
 showHello('greeting', 'TypeScript');
 
@@ -148,3 +151,24 @@ const personBook: PersonBook = {
     pages: 400
 };
 console.log(personBook);
+
+/* Task 06.05 */
+const flag = false;
+if (!flag) {
+    import('./classes')
+        .then(module => {
+            const reader = new module.Reader();
+            reader.name = 'Ann';
+            reader.take(getAllBooks()[3]);
+            console.log(reader);
+        });
+}
+
+/* Task 06.06 */
+// let lib: Library = new Library();
+let lib: Library = {
+    Id: 1,
+    name: 'Ann',
+    address: 'LA'
+};
+console.log(lib);
