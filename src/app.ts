@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-redeclare */
 showHello('greeting', 'TypeScript');
 
@@ -11,6 +12,9 @@ enum Category { JavaScript, CSS, HTML, TypeScript, Angular, React };
 
 type DamageLogger2 = (reason: string) => void;
 type BookProperties = keyof Book;
+type PersonBook = Person & Book;
+type BookOrUndefined = Book | undefined;
+type idGeneratorFunction = (name: string, id: number) => string;
 
 interface DamageLogger {
     (reason: string): void;
@@ -92,7 +96,6 @@ function createCustomerID(name: string, id: number): string {
     return `${id} - ${name}`;
 }
 
-type idGeneratorFunction = (name: string, id: number) => string;
 
 const createCustomerIDArr = (name: string, id: number): string => `${id} - ${name}`;
 const createCustomerIDArrWithType: idGeneratorFunction = (name: string, id: number): string => `${id} - ${name}`;
@@ -106,7 +109,7 @@ function createCustomer(name: string, age: number = 27, city?: string): void {
     if (city) console.log(`Customer city: ${city}`);
 }
 
-function getBookByID(id: number): Book | undefined {
+function getBookByID(id: number): BookOrUndefined {
     const books = getAllBooks();
     return books.find((book: { id: number }) => book.id === id);
 }
@@ -173,6 +176,74 @@ function getBookProp(book: Book, prop: BookProperties): any {
         return book[prop]['name'];
     }
     return book[prop];
+}
+
+abstract class ReferenceItem {
+    /*
+    title: string;
+    year: number;
+
+    constructor(title: string, year: number) {
+        console.log('Creating a new ReferenceItem...');
+
+        this.title = title;
+        this.year = year;
+    }
+    */
+
+    static department: string = 'Classical Literature';
+
+    #id: number;
+    private _publisher: string;
+
+    get publisher(): string {
+        return this._publisher.toUpperCase();
+    }
+
+    set publisher(publisher: string) {
+        this._publisher = publisher;
+    }
+
+    constructor(id: number, public title: string, protected year: number) {
+        console.log('Creating a new ReferenceItem...');
+        this.#id = id;
+    }
+
+    getId(): number {
+        return this.#id;
+    }
+
+    printItem(): void {
+        console.log(`${this.title} was published in ${this.year}`);
+        console.log(`Departament: ${ReferenceItem.department}`);
+    }
+
+    abstract printCitation(): void;
+}
+
+class Encyclopedia extends ReferenceItem {
+    constructor(id: number, title: string, year: number, public edition: number) {
+        super(id, title, year);
+    }
+
+    printItem(): void {
+        super.printItem();
+        console.log(`Edition: ${this.edition} (${this.year})`);
+    }
+
+    printCitation(): void {
+        console.log(`${this.title} – ${this.year}`);
+    }
+}
+
+class UniversityLibrarian implements Librarian {
+    name: string;
+    email: string;
+    department: string;
+
+    assistCustomer(customerName: string): void {
+        console.log(`${this.name} is assisting ${customerName}`);
+    }
 }
 
 /* Task 02 */
@@ -273,4 +344,49 @@ console.log(offer.getTitle?.());
 console.log(getBookProp(getAllBooks()[0], 'title'));
 console.log(getBookProp(getAllBooks()[0], 'markDamaged'));
 console.log(getBookProp(getAllBooks()[0], 'isbn'));
+*/
+
+/* Task 05.01. Creating and Using Classes */
+/*
+const ref: ReferenceItem = new ReferenceItem(1, 'TypeScript', 2020);
+console.log(ref);
+ref.printItem();
+ref.publisher = 'Some Publisher';
+console.log(ref.publisher);
+console.log(ref.getId());
+*/
+
+/* Task 05.02. Extending Classes */
+/*
+const refBook = new Encyclopedia(1, 'TypeScript', 2020, 1);
+refBook.printItem();
+*/
+
+/* Task 05.03. Creating Abstract Classes */
+/*
+const refBook = new Encyclopedia(1, 'TypeScript', 2020, 1);
+refBook.printCitation();
+*/
+
+/* Task 05.04. Interfaces for Class Types */
+/*
+const favoriteLibrarian: Librarian = new UniversityLibrarian();
+favoriteLibrarian.name = 'Ann';
+favoriteLibrarian.assistCustomer('Boris');
+*/
+
+/* Task 05.05. Intersection and Union Types */
+/*
+const personBook: PersonBook = {
+    name: 'Ann',
+    email: 'ann.email.com',
+    author: 'Boris',
+    available: false,
+    category: Category.Angular,
+    id: 1,
+    title: 'Intro',
+    markDamaged: null,
+    pages: 400
+};
+console.log(personBook);
 */
