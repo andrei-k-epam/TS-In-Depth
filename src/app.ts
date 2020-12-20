@@ -1,4 +1,4 @@
-import { ReferenceItem } from './classes';
+import { ReferenceItem, RefBook } from './classes';
 import { Category } from './enums';
 import { Logger } from './interfaces';
 import { PersonBook } from './types';
@@ -8,22 +8,6 @@ showHello('greeting', 'TypeScript');
 function showHello(divName: string, name: string) {
     const elt = document.getElementById(divName);
     elt.innerText = `Hello from ${name}`;
-}
-
-/* --- */
-class Encyclopedia extends ReferenceItem {
-    constructor(id: number, title: string, year: number, public edition: number) {
-        super(id, title, year);
-    }
-
-    printItem(): void {
-        super.printItem();
-        console.log(`Edition: ${this.edition} (${this.year})`);
-    }
-
-    printCitation(): void {
-        console.log(`${this.title} – ${this.year}`);
-    }
 }
 
 /* Task 02 */
@@ -135,10 +119,8 @@ console.log(ref.getId());
 */
 
 /* Task 05.02. Extending Classes */
-/*
-const refBook = new Encyclopedia(1, 'TypeScript', 2020, 1);
+const refBook = new RefBook(1, 'TypeScript', 2020, 1);
 refBook.printItem();
-*/
 
 /* Task 05.03. Creating Abstract Classes */
 /*

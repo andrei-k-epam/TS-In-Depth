@@ -1,7 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import * as Interfaces from './interfaces';
-
-abstract class ReferenceItem {
+export abstract class ReferenceItem {
     /*
     title: string;
     year: number;
@@ -43,15 +41,3 @@ abstract class ReferenceItem {
 
     abstract printCitation(): void;
 }
-
-class UniversityLibrarian implements Interfaces.Librarian {
-    name: string;
-    email: string;
-    department: string;
-
-    assistCustomer(customerName: string): void {
-        console.log(`${this.name} is assisting ${customerName}`);
-    }
-}
-
-export { ReferenceItem, UniversityLibrarian };
