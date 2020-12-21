@@ -1,7 +1,7 @@
-import { ReferenceItem, RefBook } from './classes';
+import { ReferenceItem, RefBook, Shelf } from './classes';
 import { Category } from './enums';
-import { getAllBooks } from './functions';
-import { Logger } from './interfaces';
+import { getAllBooks, purge } from './functions';
+import { Book, Logger, Magazine } from './interfaces';
 import { PersonBook } from './types';
 
 import type { Library } from './classes';
@@ -74,8 +74,10 @@ printBook(myBook);
 console.log(myBook.markDamaged('missing back cover'));
 */
 /* Task 04.02 */
+/*
 const logDamage: Logger = (reason: string) => `Damaged: ${reason}`;
 console.log(logDamage('missing back cover'));
+*/
 
 /* Task 04.03 */
 /*
@@ -122,9 +124,10 @@ console.log(ref.getId());
 */
 
 /* Task 05.02. Extending Classes */
+/*
 const refBook = new RefBook(1, 'TypeScript', 2020, 1);
 refBook.printItem();
-
+*/
 /* Task 05.03. Creating Abstract Classes */
 /*
 const refBook = new Encyclopedia(1, 'TypeScript', 2020, 1);
@@ -139,6 +142,7 @@ favoriteLibrarian.assistCustomer('Boris');
 */
 
 /* Task 05.05. Intersection and Union Types */
+/*
 const personBook: PersonBook = {
     name: 'Ann',
     email: 'ann@email.com',
@@ -151,8 +155,9 @@ const personBook: PersonBook = {
     pages: 400
 };
 console.log(personBook);
-
+*/
 /* Task 06.05 */
+/*
 const flag = false;
 if (!flag) {
     import('./classes')
@@ -163,12 +168,52 @@ if (!flag) {
             console.log(reader);
         });
 }
-
+*/
 /* Task 06.06 */
 // let lib: Library = new Library();
+/*
 let lib: Library = {
     Id: 1,
     name: 'Ann',
     address: 'LA'
 };
 console.log(lib);
+*/
+/* Task 07. Generics */
+/*
+const inventory: Book[] = [
+    { id: 10, title: 'The C Programming Language', author: 'K & R', available: true, category: Category.Software },
+    { id: 11, title: 'Code Complete', author: 'Steve McConnell', available: true, category: Category.Software },
+    { id: 12, title: '8-Bit Graphics with Cobol', author: 'A. B.', available: true, category: Category.Software },
+    { id: 13, title: 'Cool autoexec.bat Scripts!', author: 'C. D.', available: true, category: Category.Software }
+];
+
+const result = purge<Book>(inventory);
+console.log(result);
+
+console.log(purge([1, 2, 3, 4]));
+*/
+
+/* Task 07.02 */
+const inventory: Book[] = [
+    { id: 10, title: 'The C Programming Language', author: 'K & R', available: true, category: Category.Software },
+    { id: 11, title: 'Code Complete', author: 'Steve McConnell', available: true, category: Category.Software },
+    { id: 12, title: '8-Bit Graphics with Cobol', author: 'A. B.', available: true, category: Category.Software },
+    { id: 13, title: 'Cool autoexec.bat Scripts!', author: 'C. D.', available: true, category: Category.Software }
+];
+const bookShelf: Shelf<Book> = new Shelf<Book>();
+inventory.forEach(book => bookShelf.add(book));
+console.log(bookShelf.getFirt().title);
+
+const magazines: Magazine[] = [
+    { title: 'Programming Language Monthly', publisher: 'Code Mags' },
+    { title: 'Literary Fiction Quarterly', publisher: 'College Press' },
+    { title: 'Five Points', publisher: 'GSU' }
+];
+const magazineShelf: Shelf<Magazine> = new Shelf<Magazine>();
+magazines.forEach(magazine => magazineShelf.add(magazine));
+console.log(magazineShelf.getFirt().title);
+
+/* Task 07.03 */
+magazineShelf.printTitles();
+console.log(magazineShelf.find('Five Points'));

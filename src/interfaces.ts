@@ -29,4 +29,13 @@ interface Author extends Person {
     numBooksPublished: number;
 }
 
-export { DamageLogger as Logger, Book, Person, Author, Librarian };
+interface Magazine {
+    title: string;
+    publisher: string;
+}
+
+interface ShelfItem {
+    title: string;
+}
+
+export { DamageLogger as Logger, Book, Person, Author, Librarian, Magazine, ShelfItem };

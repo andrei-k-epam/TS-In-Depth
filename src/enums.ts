@@ -1,3 +1,3 @@
-enum Category { JavaScript, CSS, HTML, TypeScript, Angular, React };
+enum Category { JavaScript, CSS, HTML, TypeScript, Angular, React, Software };
 
 export { Category };
