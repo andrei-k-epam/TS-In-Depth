@@ -1,4 +1,4 @@
-import { ReferenceItem, RefBook, Shelf } from './classes';
+import { ReferenceItem, RefBook, Shelf, UniversityLibrarian } from './classes';
 import { Category } from './enums';
 import { createCustomer, getAllBooks, purge } from './functions';
 import { Book, Logger, Magazine } from './interfaces';
@@ -244,3 +244,9 @@ const updatedBook: UpdatedBook = {
 const params: Parameters<СreateCustomerFunctionType> = ['Ann', 30];
 console.log(createCustomer(...params));
 */
+
+/* 08.01, 08.02 */
+const obj = new UniversityLibrarian();
+console.log(obj);
+obj.name = 'Ann';
+obj['printLibrarian']();
