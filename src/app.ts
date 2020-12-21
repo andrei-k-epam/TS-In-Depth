@@ -1,8 +1,8 @@
 import { ReferenceItem, RefBook, Shelf } from './classes';
 import { Category } from './enums';
-import { getAllBooks, purge } from './functions';
+import { createCustomer, getAllBooks, purge } from './functions';
 import { Book, Logger, Magazine } from './interfaces';
-import { PersonBook } from './types';
+import { BookRequiredFields, PersonBook, UpdatedBook, СreateCustomerFunctionType } from './types';
 
 import type { Library } from './classes';
 
@@ -195,6 +195,7 @@ console.log(purge([1, 2, 3, 4]));
 */
 
 /* Task 07.02 */
+/*
 const inventory: Book[] = [
     { id: 10, title: 'The C Programming Language', author: 'K & R', available: true, category: Category.Software },
     { id: 11, title: 'Code Complete', author: 'Steve McConnell', available: true, category: Category.Software },
@@ -213,7 +214,33 @@ const magazines: Magazine[] = [
 const magazineShelf: Shelf<Magazine> = new Shelf<Magazine>();
 magazines.forEach(magazine => magazineShelf.add(magazine));
 console.log(magazineShelf.getFirt().title);
+*/
 
 /* Task 07.03 */
+/*
+const magazineShelf: Shelf<Magazine> = new Shelf<Magazine>();
 magazineShelf.printTitles();
 console.log(magazineShelf.find('Five Points'));
+*/
+
+/* Task 07.04. Utility Types */
+/*
+const obj: BookRequiredFields = {
+    id: 1,
+    author: 'Ann',
+    available: false,
+    category: Category.CSS,
+    markDamaged: null,
+    pages: 100,
+    title: 'Unknown'
+
+};
+
+const updatedBook: UpdatedBook = {
+    id: 2,
+    author: 'John'
+};
+
+const params: Parameters<СreateCustomerFunctionType> = ['Ann', 30];
+console.log(createCustomer(...params));
+*/
