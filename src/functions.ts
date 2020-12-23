@@ -1,6 +1,6 @@
 /* eslint-disable no-redeclare */
 import { Category } from './enums';
-import { Book } from './interfaces';
+import { Book, LibMgrCallback } from './interfaces';
 import { BookOrUndefined, BookProperties } from './types';
 
 export function getAllBooks(): readonly Book[] {
@@ -164,4 +164,27 @@ export function makeProperty<T>(
         enumerable: true,
         configurable: true
     });
+}
+
+export function getBooksByCategory(category: Category, callback: LibMgrCallback): void {
+    setTimeout(() => {
+        try {
+            const bookTitlesByCategories: string[] = getBookTitlesByCategory(category);
+            if (bookTitlesByCategories.length) {
+                callback(null, bookTitlesByCategories);
+            } else {
+                throw new Error('No books found.');
+            }
+        } catch (err) {
+            callback(err, null);
+        }
+    }, 2_000);
+}
+
+export function logCategorySearch(err: Error, titles: string[]) {
+    if (titles) {
+        console.log(titles);
+    } else {
+        console.log(err.message);
+    }
 }

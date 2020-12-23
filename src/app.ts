@@ -1,6 +1,6 @@
 import { ReferenceItem, RefBook, Shelf, UniversityLibrarian } from './classes';
 import { Category } from './enums';
-import { createCustomer, getAllBooks, purge } from './functions';
+import { createCustomer, getAllBooks, getBooksByCategory, logCategorySearch, purge } from './functions';
 import { Book, Logger, Magazine } from './interfaces';
 import { BookRequiredFields, PersonBook, UpdatedBook, СreateCustomerFunctionType } from './types';
 
@@ -276,6 +276,12 @@ o.assistCustomer('Boris');
 */
 
 /* Task 08.07. Accessor Decorator */
+/*
 const enc = new RefBook(1, 'No Title', 2020, 2);
 enc.copies = 10;
 // enc.copies = -10;
+*/
+
+/* Task 09.01. Callback Functions */
+getBooksByCategory(Category.JavaScript, logCategorySearch);
+getBooksByCategory(Category.Software, logCategorySearch);
