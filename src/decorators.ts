@@ -21,3 +21,23 @@ export function logger<TFunction extends Function>(target: TFunction): TFunction
 
     return newConstructor as TFunction;
 }
+
+export function writable(isWritable: boolean) {
+    return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
+        descriptor.writable = isWritable;
+
+        return descriptor;
+    };
+}
+
+export function timeout(ms: number) {
+    return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
+        const originalMethod = descriptor.value;
+        descriptor.value = function (...args: any[]) {
+            setTimeout(() => {
+                return originalMethod.apply(this, args);
+            }, ms);
+        };
+        return descriptor;
+    };
+}

@@ -246,7 +246,21 @@ console.log(createCustomer(...params));
 */
 
 /* 08.01, 08.02 */
+/*
 const obj = new UniversityLibrarian();
 console.log(obj);
 obj.name = 'Ann';
 obj['printLibrarian']();
+*/
+
+/* 08.03. Method Decorator */
+/*
+const o = new UniversityLibrarian();
+o.assistCustomer = null;
+// o.teachCommunity = null;
+console.log(o);
+*/
+
+/* 08.04. Method Decorator */
+const enc = new RefBook(1, 'No Title', 2020, 2);
+enc.printItem();

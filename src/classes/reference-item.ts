@@ -1,3 +1,5 @@
+import { timeout } from '../decorators';
+
 /* eslint-disable no-underscore-dangle */
 export abstract class ReferenceItem {
     /*
@@ -34,6 +36,7 @@ export abstract class ReferenceItem {
         return this.#id;
     }
 
+    @timeout(2000)
     printItem(): void {
         console.log(`${this.title} was published in ${this.year}`);
         console.log(`Departament: ${ReferenceItem.department}`);
