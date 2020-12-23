@@ -262,5 +262,20 @@ console.log(o);
 */
 
 /* 08.04. Method Decorator */
+/*
 const enc = new RefBook(1, 'No Title', 2020, 2);
 enc.printItem();
+*/
+
+/* 08.05 - 08.06. Parameter  Decorator */
+/*
+const o = new UniversityLibrarian();
+console.log(o);
+o.name = 'Ann';
+o.assistCustomer('Boris');
+*/
+
+/* Task 08.07. Accessor Decorator */
+const enc = new RefBook(1, 'No Title', 2020, 2);
+enc.copies = 10;
+// enc.copies = -10;

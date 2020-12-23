@@ -131,3 +131,37 @@ export function getBookProp(book: Book, prop: BookProperties): any {
 export function purge<T>(inventory: Array<T>): Array<T> {
     return inventory.slice(2);
 }
+
+export function makeProperty<T>(
+    prototype: any,
+    propertyName: string,
+    getTransformer: (value: any) => T,
+    setTransformer: (value: any) => T) {
+
+    const values = new Map<any, T>();
+
+    Object.defineProperty(prototype, propertyName, {
+        set(firstValue: any) {
+            Object.defineProperty(this, propertyName, {
+                get() {
+                    if (getTransformer) {
+                        return getTransformer(values.get(this));
+                    } else {
+                        values.get(this);
+                    }
+                },
+                set(value: any) {
+                    if (setTransformer) {
+                        values.set(this, setTransformer(value));
+                    } else {
+                        values.set(this, value);
+                    }
+                },
+                enumerable: true
+            });
+            this[propertyName] = firstValue;
+        },
+        enumerable: true,
+        configurable: true
+    });
+}

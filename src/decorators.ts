@@ -1,3 +1,5 @@
+import { makeProperty } from './functions';
+
 export function sealed(param: string) {
     return function (target: Function): void {
         console.log(`Sealing the constructor ${param}`);
@@ -40,4 +42,50 @@ export function timeout(ms: number) {
         };
         return descriptor;
     };
+}
+
+export function logParameter(target: any, methodName: string, index: number) {
+    const key = `${methodName}_decor_params_indexes`;
+    if (Array.isArray(target[key])) {
+        target[key].push(index);
+    } else {
+        target[key] = [index];
+    }
+}
+
+export function logMethod(target: any, methodName: string, descriptor: PropertyDescriptor) {
+    const originalMethod = descriptor.value;
+
+    descriptor.value = function (...args: any[]) {
+        const key = `${methodName}_decor_params_indexes`;
+        const indexes = target[key];
+        if (Array.isArray(indexes)) {
+            args.forEach((arg, index) => {
+                if (indexes.includes(index)) {
+                    console.log(`Method: ${methodName}, ParamIndex: ${index}, ParamValue: ${arg}`);
+                }
+            });
+        }
+        return originalMethod.apply(this, args);
+    };
+
+    return descriptor;
+}
+
+export function format(pref: string = 'Mr./Mrs.') {
+    return function (target: any, propertyName: string) {
+        makeProperty(target, propertyName, value => `${pref} ${value}`, value => value);
+    };
+}
+
+export function positiveInteger(target: any, methodName: string, descriptor: PropertyDescriptor) {
+    const originalSet = descriptor.set;
+    descriptor.set = function (value: number) {
+        if (value < 1 || !Number.isInteger(value)) {
+            throw new Error('Invalid value');
+        }
+        originalSet.call(this, value);
+    };
+
+    return descriptor;
 }
