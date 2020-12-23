@@ -197,3 +197,10 @@ export function getBooksByCategoryPromise(category: Category): Promise<string[]>
         }, 2_000);
     });
 }
+
+export async function logSearchResults(category: Category) {
+    console.log('Function logSearchResults started');
+    const result: string[] = await getBooksByCategoryPromise(category);
+    console.log(result);
+    console.log(`${result.length} books found.`);
+}

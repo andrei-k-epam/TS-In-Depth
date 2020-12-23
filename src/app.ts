@@ -1,6 +1,6 @@
 import { ReferenceItem, RefBook, Shelf, UniversityLibrarian } from './classes';
 import { Category } from './enums';
-import { createCustomer, getAllBooks, getBooksByCategory, getBooksByCategoryPromise, logCategorySearch, purge } from './functions';
+import { createCustomer, getAllBooks, getBooksByCategory, getBooksByCategoryPromise, logCategorySearch, logSearchResults, purge } from './functions';
 import { Book, Logger, Magazine } from './interfaces';
 import { BookRequiredFields, PersonBook, UpdatedBook, СreateCustomerFunctionType } from './types';
 
@@ -289,6 +289,7 @@ getBooksByCategory(Category.Software, logCategorySearch);
 */
 
 /* Task 09.02. Promises */
+/*
 console.log('start');
 getBooksByCategoryPromise(Category.JavaScript)
     .then(result => {
@@ -313,4 +314,11 @@ getBooksByCategoryPromise(Category.Software)
     .catch(err => {
         console.log('Rejected: ' + err);
     });
+console.log('end');
+*/
+
+/* Task 09.02. Async Functions  */
+console.log('start');
+logSearchResults(Category.JavaScript);
+logSearchResults(Category.Software);
 console.log('end');
